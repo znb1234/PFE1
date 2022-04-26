@@ -1,0 +1,56 @@
+#index:
+  # path: /
+   # controller: App\Controller\UserController::index
+authentication_token:
+    path: /authentication_token
+    methods: ['POST']
+
+login:
+  path: /login
+  controller: App\Controller\LoginController::index
+  methods: ['POST','GET']
+
+Registration:
+    path: /register
+    controller: App\Controller\RegistrationController::index
+    methods: [ 'POST','GET' ]
+logout :
+  path: /logout
+  controller: App\Controller\LoginController::logout
+  methods: [ 'GET' ]
+users:
+  path: /users
+  controller: App\Controller\UsersController::getUsers
+  methods: ['GET']
+activate:
+  path: /activate
+  controller: App\Controller\UsersController::verifyUser
+  methods: [ 'GET','POST','PUT' ]
+disactivate:
+  path: /disactivate
+  controller: App\Controller\UsersController::disactivate
+  methods: [ 'GET','POST' ]
+posting:
+  path: /posting
+  controller: App\Controller\PostController::index
+  methods: ['GET','POST']
+getUse:
+  path: /getUser
+  controller: App\Controller\PostController::getUse
+  methods: ['GET','POST']
+getPost:
+  path: /getPost
+  controller: App\Controller\CommentContoller::getPost
+  methods: ['GET','POST']
+Comment:
+  path: /Comment
+  controller: App\Controller\CommentContoller::create
+  methods: ['POST']
+ListingP:
+  path: /ListingPosts
+  controller: App\Controller\ListingPostsController::ListingPosts
+  methods: ['POST','GET']
+ListingC:
+  path: /ListingComments
+  controller: App\Controller\AffichageCommentaires::ListingComments
+  methods: ['POST','GET']
