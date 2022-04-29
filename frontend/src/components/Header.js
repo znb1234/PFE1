@@ -22,6 +22,23 @@ const Header = () => {
             <LinkContainer to='/users' style={{ color: 'purple' }}>
               <Nav.Link>Espace admin</Nav.Link>
             </LinkContainer>
+
+            <NavDropdown
+              title={
+                <span className="my-auto" style={{ color: 'purple' }}>
+                  Espace Admin
+                </span>
+              }
+              id='espace-admin'>
+              <LinkContainer to='/users'>
+                <NavDropdown.Item>User's List</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/dashboard'>
+                <NavDropdown.Item>Dashboard</NavDropdown.Item>
+              </LinkContainer>
+            </NavDropdown>
+
+
             <LinkContainer to='/my-space' style={{ color: 'purple' }}>
               <Nav.Link>Mon espace</Nav.Link>
             </LinkContainer>
@@ -34,46 +51,26 @@ const Header = () => {
             <LinkContainer to='/Shared-Space' style={{ color: 'purple' }}>
               <Nav.Link>Espace commun </Nav.Link>
             </LinkContainer>
-
-
+            {/* <Nav > */}
             <Nav className='ms-auto'>
 
-              {/* <LinkContainer to='/search' style={{ color: 'white' }}>
-                <Nav.Link className='justify-content-end'>
-                  <col>
-                    <div class="input-group">
-                      <div class="form-outline">
-                        <input type="search" id="form1" class="form-control" />
-                        <label class="form-label" for="form1">Search</label>
-                      </div>
-                      <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </col>
-                </Nav.Link>
-              </LinkContainer> */}
-              <div className="wrap">
-                <div className="search">
+              <div className=" search-box">
+                <div className="search ">
                   <input type="text" className="searchTerm" placeholder="What are you looking for?"></input>
-                    <button type="submit" className="searchButton">
-                      <i className="fa fa-search"></i>
-                    </button>
+                  <button type="submit" className="searchButton">
+                    <i className="fa fa-search"></i>
+                  </button>
                 </div>
               </div>
-
-
-
-
-
+              {/* </Nav> */}
+              {/* <Nav> */}
               <LinkContainer to='/login' style={{ color: 'purple' }}>
                 <Nav.Link className='justify-content-end'>
-                  <Col>
-                    <i className='fas fa-user'></i> Login
-                  </Col>
+                  <i className='fas fa-user'></i> Login
                 </Nav.Link>
               </LinkContainer>
             </Nav>
+            {/* </Nav> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

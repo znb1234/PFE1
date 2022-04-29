@@ -1,44 +1,30 @@
 
 
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 //import React, { useState } from 'react'
 import axios from 'axios'
-import  '../components/Users.css'
+import '../components/Users.css'
+import { Row, Col } from 'react-bootstrap'
 import history from "../history";
 import data from "bootstrap/js/src/dom/data";
 
-
-
-
 class Users extends Component {
-
-
-
-
-
-        constructor()
-        {
-            super();
-            this.state = {users: [], loading: true};
-        }
-
-        componentDidMount()
-        {
-            this.getUsers();
-        }
-
-        getUsers()
-        {
-            axios.get(`http://localhost:8000/users`).then(users => {
-                this.setState({users: users.data, loading: false})
-            })
-        }
-
-
+    constructor() {
+        super();
+        this.state = { users: [], loading: true };
+    }
+    componentDidMount() {
+        this.getUsers();
+    }
+    getUsers() {
+        axios.get(`http://localhost:8000/users`).then(users => {
+            this.setState({ users: users.data, loading: false })
+        })
+    }
 
     render() {
         const loading = this.state.loading;
-        return(
+        return (
             <div>
                 <section className="row-section">
                     <div className="container">
@@ -52,26 +38,28 @@ class Users extends Component {
                             </div>
                         ) : (
                             <div className={'row'}>
-                                { this.state.users.map(user =>
+                                {this.state.users.map(user =>
                                     <div className="col-md-10 offset-md-1 row-block" key={user.id}>
                                         <ul id="sortable">
                                             <li>
                                                 <div className="media">
-                                                    <div className="media-body">
-                                                        <h4>{user.email}</h4>
-                                                        {user.isVerified?
-                                                            <span className="badge rounded-pill bg-success">status</span>:
-                                                            <span className="badge rounded-pill bg-danger">Status</span>
-                                                        }
-
-                                                        <p>{user.username}</p>
-                                                    </div>
-                                                    <div className="media-right align-self-center">
-
-
-
-                                                        <a href="#"  onClick={ ()=> activate(user.username)}  className="btn btn-default">{user.isVerified?"Disactiver":"Activer"}</a>
-                                                    </div>
+                                                    <Row>
+                                                        <Col>
+                                                            <div className="media-body">
+                                                                <h4>{user.email}</h4>
+                                                                {user.isVerified ?
+                                                                    <span className="badge rounded-pill bg-success">status</span> :
+                                                                    <span className="badge rounded-pill bg-danger">Status</span>
+                                                                }
+                                                                <p>{user.username}</p>
+                                                            </div>
+                                                        </Col>
+                                                        <Col style={{ marginLeft: '31.25rem' }}>
+                                                            <div className="media-right align-self-center justify-content-end">
+                                                                <button onClick={() => activate(user.username)} className="btn btn-default">{user.isVerified ? "Désactiver" : "Activer"}</button>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </li>
                                         </ul>
@@ -86,13 +74,9 @@ class Users extends Component {
     }
 }
 
- function activate  (username)  {
-
+function activate(username) {
     console.log(username)
-    axios.put(`http://127.0.0.1:8000/activate`, {username});
+    axios.put(`http://127.0.0.1:8000/activate`, { username });
     window.location.reload();
-
-
-
 }
 export default Users;
