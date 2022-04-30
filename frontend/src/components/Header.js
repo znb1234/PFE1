@@ -4,8 +4,21 @@ import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import logo from '../assets/img/logo.png'
 import './Header.css'
+import { useDispatch, useSelector } from 'react-redux'
+import {alignPropType} from "react-bootstrap/types";
+import {redirectIfLoggedIn} from "@userfront/core";
+import {logout} from '../Redux/actions/userActions.js'
 
 const Header = () => {
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {  isLoggedIn, user } = userLogin
+
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
+
   return (
     <header>
       <Navbar bg='white' expand='lg'>
@@ -14,14 +27,11 @@ const Header = () => {
             <img className='logo' src={logo} alt='Sharevioo' style={{ width: '10px', height: '10px' }}>
             </img>
           </LinkContainer>
+
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <LinkContainer to='/dashboard' style={{ color: 'purple' }}>
-              <Nav.Link>Dashboard</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to='/users' style={{ color: 'purple' }}>
-              <Nav.Link>Espace admin</Nav.Link>
-            </LinkContainer>
+          <Navbar.Collapse id='basic-navbar-nav'  >
+
+
 
             <NavDropdown
               title={
@@ -31,7 +41,7 @@ const Header = () => {
               }
               id='espace-admin'>
               <LinkContainer to='/users'>
-                <NavDropdown.Item>User's List</NavDropdown.Item>
+                <NavDropdown.Item>Les utilisateurs </NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to='/dashboard'>
                 <NavDropdown.Item>Dashboard</NavDropdown.Item>
@@ -39,21 +49,26 @@ const Header = () => {
             </NavDropdown>
 
 
-            <LinkContainer to='/my-space' style={{ color: 'purple' }}>
+
+   <LinkContainer to='/my-space' style={{ color: 'purple' }}>
               <Nav.Link>Mon espace</Nav.Link>
             </LinkContainer>
-            <LinkContainer to='/top-three' style={{ color: 'purple' }}>
+  <LinkContainer to='/top-three' style={{ color: 'purple' }}>
               <Nav.Link>Top Trois</Nav.Link>
             </LinkContainer>
-            <LinkContainer to='/contact-us' style={{ color: 'purple' }}>
-              <Nav.Link>Contactez_nous</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to='/Shared-Space' style={{ color: 'purple' }}>
+
+  <LinkContainer to='/Shared-Space' style={{ color: 'purple' }}>
               <Nav.Link>Espace commun </Nav.Link>
             </LinkContainer>
-            {/* <Nav > */}
-            <Nav className='ms-auto'>
+  {/* <Nav > */}
 
+    <LinkContainer
+        to='/contact-us' style={{ color: 'purple' }}>
+              <Nav.Link >Contactez_nous</Nav.Link>
+            </LinkContainer>
+
+
+            <Nav className='ms-auto'>
               <div className=" search-box">
                 <div className="search ">
                   <input type="text" className="searchTerm" placeholder="What are you looking for?"></input>
@@ -64,11 +79,21 @@ const Header = () => {
               </div>
               {/* </Nav> */}
               {/* <Nav> */}
-              <LinkContainer to='/login' style={{ color: 'purple' }}>
-                <Nav.Link className='justify-content-end'>
-                  <i className='fas fa-user'></i> Login
-                </Nav.Link>
-              </LinkContainer>
+                {user ?
+                    <Nav.Link className='justify-content-end' style={{ color: 'purple' ,height: 2}}
+                              onClick={logoutHandler} >
+                        <i className="fa-solid fa-arrow-right-from-bracket"> Logout </i>
+                    </Nav.Link>
+                    :
+                    <LinkContainer  to='/login' style={{ color: 'purple' ,height: 2}}>
+                        <Nav.Link className='justify-content-end' >
+                            <i className="fa-solid fa-arrow-right-from-bracket"> Login </i>
+                        </Nav.Link>
+                    </LinkContainer>
+                }
+
+
+
             </Nav>
             {/* </Nav> */}
           </Navbar.Collapse>
