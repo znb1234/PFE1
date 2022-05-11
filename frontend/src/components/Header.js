@@ -80,7 +80,7 @@ const Header = () => {
               {/* </Nav> */}
               {/* <Nav> */}
                 {user ?
-                    <Nav.Link className='justify-content-end' style={{ color: 'purple' ,height: 2}}
+                    <Nav.Link className='justify-content-end' style={{ color: 'purple' ,marginTop:15}}
                               onClick={logoutHandler} >
                         <i className="fa-solid fa-arrow-right-from-bracket"> Logout </i>
                     </Nav.Link>

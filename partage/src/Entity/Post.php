@@ -7,6 +7,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ApiResource]
@@ -16,6 +17,9 @@ class Post
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
+
+    #[ORM\Column(type: 'integer')]
+    private $nombrelike;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     private $auteur;
@@ -30,10 +34,13 @@ class Post
     private $updatetime;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $dataType;
+    private $description;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $category;
+
+    #[ORM\OneToOne(targetEntity: User::class)]
+    private bool $isLiked = false;
 
     public function __construct()
     {
@@ -109,14 +116,14 @@ class Post
         return $this;
     }
 
-    public function getDataType(): ?string
+    public function getDescription(): ?string
     {
-        return $this->dataType;
+        return $this->description;
     }
 
-    public function setDataType(?string $dataType): self
+    public function setDescription(?string $description): self
     {
-        $this->dataType = $dataType;
+        $this->description = $description;
 
         return $this;
     }
@@ -132,4 +139,33 @@ class Post
 
         return $this;
     }
+
+    public function isLiked(? Boolean $isLiked): Boolean
+    { $this->isLiked =$isLiked ;
+        return $this;
+    }
+
+    public function setLiked(Boolean $isLiked): self
+    {
+       return $this-> $isLiked;
+
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombrelike()
+    {
+        return $this->nombrelike;
+    }
+
+    /**
+     * @param mixed $nombrelike
+     */
+    public function setNombrelike($nombrelike): void
+    {
+        $this->nombrelike = $nombrelike;
+    }
+
 }

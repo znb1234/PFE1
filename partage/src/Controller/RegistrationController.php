@@ -49,7 +49,9 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->json(['status' => 200, 'response' => "user added"]);
+            return $this->json(['status' => 200, 'response' => "user added",
+            'user' => $user->getEmail()
+        ]);
         }
 
 

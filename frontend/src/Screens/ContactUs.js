@@ -57,7 +57,7 @@ const ContactUs = () => {
                                 className="form-control"
                                 style={{
                                     borderRadius: '10px',
-                                    width: '500px',
+                                    width: '270px',
                                     height: '200px',
                                     marginRight: 'auto'
                                 }}>

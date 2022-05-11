@@ -1,0 +1,11 @@
+:root {
+  --pcolor: #EFC7ED;
+}
+
+
+.ant-btn {
+  background : #EFC7ED !important;
+  outline: none !important;
+  border: none !important;
+  color : black !important;
+}

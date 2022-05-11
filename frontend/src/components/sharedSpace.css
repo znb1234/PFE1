@@ -1,0 +1,10 @@
+.card{
+    margin-right: 1px;
+    margin-left: 1px;
+}
+.containerCard{
+    position: center;
+    margin-top: 200px;
+    margin-left: 200px;
+    height: 2px;
+}

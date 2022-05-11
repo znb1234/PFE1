@@ -51,14 +51,21 @@ const Login = ({location1}) => {
     if (user) {
       history.push('/dashboard')
     }else {
-      history.push('/login')
+        alert("check your confirmation email ")
+     // history.push('/login')
     }
   }, [user, history])
 
 
   return (
-      <div>
+      <div className='a'>
         <Container>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
           <div className="login-html">
             <Form onSubmit={submitHandler}>
               <Form.Group className='mb-3' controlId='formBasicEmail'>
@@ -70,8 +77,10 @@ const Login = ({location1}) => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicPassword'>
-                <Form.Label>Password</Form.Label>
+              <br/>
+
+              <Form.Group className='mb-3' >
+                <Form.Label >Password</Form.Label>
                 <Form.Control
                     type='password'
                     placeholder='Password'
@@ -79,13 +88,18 @@ const Login = ({location1}) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
-              <Button  onClick={ submitHandler} variant='primary' type='submit'>
-                login
+             <br/>
+              <br/>
+              <Button  onClick={ submitHandler} className='button' type='submit'>
+                Login
               </Button>
               <br/>
-              <div className='p-3'>
+              <br/>
+              <br/>
+              <div className='p'>
+                Vous n'avez pas un compte ?
                 <Link to='/register' >
-                  New User ? Register
+                    Register
                 </Link>
               </div>
             </Form>

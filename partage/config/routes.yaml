@@ -1,9 +1,10 @@
-#index:
-  # path: /
-   # controller: App\Controller\UserController::index
+index:
+  path: /
+  controller: App\Controller\LoginController::index
+  methods: ['POST','GET']
 authentication_token:
-    path: /authentication_token
-    methods: ['POST']
+  path: /authentication_token
+  methods: ['POST']
 
 login:
   path: /login
@@ -54,3 +55,43 @@ ListingC:
   path: /ListingComments
   controller: App\Controller\AffichageCommentaires::ListingComments
   methods: ['POST','GET']
+ContactUs:
+  path: /ContactUs
+  controller: App\Controller\ContactUsController::Contact
+  methods: ['Post']
+like:
+  path: /like
+  controller: App\Controller\PostController::likepost
+  methods: [ 'Post','Get' ]
+updateP:
+  path: /UpdateP
+  controller: App\Controller\updateController::updatePost
+  methods: [ 'POST','GET' ]
+updateC:
+  path: /UpdateC
+  controller: App\Controller\updateController::updateComment
+  methods: [ 'POST','GET' ]
+deleteP:
+  path: /DeleteP
+  controller:  App\Controller\deleteController::DeletePost
+  methods: ['POST','GET']
+deleteC:
+  path: /DeleteC
+  controller:  App\Controller\deleteController::DeleteComment
+  methods: ['POST','GET']
+getLikePosts:
+  path: /getLikePosts
+  controller:  App\Controller\PostController::getlikePosts
+  methods: ['GET']
+searchPU:
+  path:  /SearchPostsbyusername
+  controller:  App\Controller\searchController::searchPostbyusername 
+  methods: ['GET']
+searchPC:
+  path:  /SearchPostsbycategory
+  controller:  App\Controller\searchController::searchPostbycategory
+  methods: ['GET']
+searchPD:
+  path:  /SearchPostsbydescription
+  controller:  App\Controller\searchController::searchPostbydescription
+  methods: ['GET']

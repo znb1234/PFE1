@@ -3,7 +3,6 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/partage/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/partage/vendor/lexik/jwt-authentication-bundle" />
       <path value="$PROJECT_DIR$/partage/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/partage/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/partage/vendor/lcobucci/clock" />
@@ -107,7 +106,14 @@
       <path value="$PROJECT_DIR$/partage/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/partage/vendor/knplabs/knp-paginator-bundle" />
       <path value="$PROJECT_DIR$/partage/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/partage/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/partage/vendor/symfony/google-mailer" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/partage/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
 </project>

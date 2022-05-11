@@ -8,8 +8,7 @@ import ActiveJobs from "../components/ActiveJobs";
 import TotalJobViews from "../components/TotalJobViews";
 import MostPopularJob from "../components/MostPopularJob";
 import JobCredits from "../components/JobCredits";
-const WidgetOne = () => <div>Widget one</div>;
-const WidgetTwo = () => <div>Widget two</div>;
+
 const initialPositions = [
     {
         col: 1,

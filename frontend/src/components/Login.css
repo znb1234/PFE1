@@ -1,22 +1,27 @@
 body{
-    margin:0;
+    margin-top:90px;
+    margin-bottom: 90px;
     color:#6a6f8c;
-    background:#c8c8c8;
+    background: #1C8EF9;
     font:600 16px/18px 'Open Sans',sans-serif;
+
+
 }
 
 
 .login-html{
     margin:auto ;
     border-style: solid;
-    border-color: rebeccapurple;
-    border-radius:  50px 10px 50px 10px;;
+    border-color:#EBDEF0  ;
+    border-radius:  50px 40px 50px 40px;;
     text-align: center;
-    width:60%;
-    backgroundImage:vioo;
+    width:30%;
+
     position:center;
-    padding:70px 70px 70px 70px;
-    background:lightgray;
+    padding:40px 40px 40px 40px;
+    background:#613274
+;
+
 
 
 }
@@ -41,18 +46,22 @@ body{
     display:block;
 }
 .mb-3{
-    border:none;
+
     padding:15px 20px;
-    border-radius:25px;
+    border-radius:45px;
     background:rgba(255,255,255,.1);
 }
 .button {
-    border-radius: 15px ;
-
+    border-radius: 45px ;
+    color:#613274 ;
+background-color:#CCD1D1
+;
+    text-blink: true;
 }
 
 .login-form .group .button{
     background:#1161ee;
+    border-radius:45px;
 }
 
 
@@ -64,4 +73,21 @@ body{
 }
 .foot-lnk{
     text-align:center;
+    background-color: #5d2277;
+}
+.p{
+    text-blink: true;
+    color: grey;
+    text-decoration-color: #fffae8;
+}
+.a{
+    background-image: url("../assets/img/b.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    min-width: 100%;
+    min-height: 100%;
 }

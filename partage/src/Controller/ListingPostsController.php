@@ -25,9 +25,9 @@ class ListingPostsController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT c.contenu 
-            FROM App\Entity\Post c ');
+        $query = $em->createQuery('SELECT c , u.username
+            FROM App\Entity\Post c , App\Entity\User u WHERE c.auteur = u.id  ');
+
         $post = $query->getArrayResult();return new Response(json_encode($post), 200);
 
-     }
-}
+     }}

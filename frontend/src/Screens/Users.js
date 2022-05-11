@@ -31,7 +31,8 @@ class Users extends Component {
                 <
                 div className = "row" >
                 <
-                h2 className = "text-center" > < span > Liste des utilisateurs < /span> < /
+                h2 className = "text-center" > < span > Liste des utilisateurs < /span><i
+                    className="fa-solid fa-users" > </i> < /
                 h2 > <
                 /div> {
                 loading ? ( <
@@ -42,8 +43,7 @@ class Users extends Component {
                 ) : ( <
                     div className = { 'row' } > {
                         this.state.users.map(user =>
-                            <
-                            div className = "col-md-10 offset-md-1 row-block"
+                            <div className = "col-md-10 offset-md-1 row-block"
                             key = { user.id } >
                             <
                             ul id = "sortable" >
@@ -71,13 +71,16 @@ class Users extends Component {
                         Col >
                         <
                         div style = {
-                            { marginLeft: '31.25rem' }
+                            { marginLeft: '31.25rem', marginTop:'1.25rem'}
                         }  >
                         <
                         button onClick = {
                             () => activate(user.username)
                         }
-                        className = "btn btn-default" > { user.isVerified ? "Désactiver" : "Activer" } < /button> < /
+                        className = "btn btn-default" >
+                            { user.isVerified ? <i className="fa-solid fa-minus"></i>:
+                                <i className="fa-duotone fa-plus"> </i>
+                            } < /button> < /
                         div > <
                         /Col> < /
                         Row > <
