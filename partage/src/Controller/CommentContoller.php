@@ -27,25 +27,14 @@ class CommentContoller extends AbstractController
     {
         $parameters = json_decode($request->getContent(), true);
         $repository = $this->getDoctrine()->getRepository(Post::class);
-        $id= $parameters["id"];
 
-
-        $post = $repository->findOneById($id);
-        $em = $this->getDoctrine()->getManager();
-        $id = $em->createQuery('SELECT c.id
-            FROM App\Entity\Post c ');
+        $auteur=$parameters ["auteur"];
+        $a =$repository ->find($auteur);
+        return new JsonResponse($a);}
 
 
 
-        {
-            return $this->json([
-                $post
 
-            ]);
-        }
-
-
-    }
     #[Route('/Comment', name: 'Comment')]
     public function create (Request $request,ManagerRegistry $doctrine): JsonResponse
     {

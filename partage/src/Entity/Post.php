@@ -18,8 +18,28 @@ class Post
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'integer')]
-    private $nombrelike;
+    #[ORM\OneToMany(targetEntity: PostUser::class, mappedBy:"idPost")]
+    private $LikedPost;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isApprouved = false;
+
+    /**
+     * @return bool
+     */
+    public function isApprouved(): bool
+    {
+        return $this->isApprouved;
+    }
+
+    /**
+     * @param bool $isApprouved
+     */
+    public function setIsApprouved(bool $isApprouved): void
+    {
+        $this->isApprouved = $isApprouved;
+    }
+
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     private $auteur;
@@ -38,9 +58,6 @@ class Post
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $category;
-
-    #[ORM\OneToOne(targetEntity: User::class)]
-    private bool $isLiked = false;
 
     public function __construct()
     {
@@ -79,6 +96,7 @@ class Post
 
         return $this;
     }
+
 
     public function getCreationdate(): ?\DateTimeInterface
     {
@@ -140,32 +158,6 @@ class Post
         return $this;
     }
 
-    public function isLiked(? Boolean $isLiked): Boolean
-    { $this->isLiked =$isLiked ;
-        return $this;
-    }
 
-    public function setLiked(Boolean $isLiked): self
-    {
-       return $this-> $isLiked;
-
-
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNombrelike()
-    {
-        return $this->nombrelike;
-    }
-
-    /**
-     * @param mixed $nombrelike
-     */
-    public function setNombrelike($nombrelike): void
-    {
-        $this->nombrelike = $nombrelike;
-    }
 
 }

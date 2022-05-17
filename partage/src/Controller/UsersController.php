@@ -26,11 +26,7 @@ class UsersController extends AbstractController
             FROM App\Entity\User c ');
         $user = $query->getArrayResult();return new Response(json_encode($user), 200);
 
-        $users = $paginator->paginate(
-            $em,
-            $request->query->getInt('page', 1),
-            6
-        );}
+      }
 
 
 

@@ -22,7 +22,7 @@ public function searchPostbyusername (Request $request) {
     $parameters = json_decode($request->getContent(), true);
     $repository = $this->getDoctrine()->getRepository(Post::class);
     $auteur = $parameters["auteur"];
-   // $post = $repository-> findBy($auteur);
+    $post = $repository-> find($auteur);
 
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery('SELECT c
@@ -38,7 +38,7 @@ public function searchPostbycategory (Request $request) {
     $parameters = json_decode($request->getContent(), true);
     $repository = $this->getDoctrine()->getRepository(Post::class);
     $category = $parameters["category"];
-    $post = $repository-> findBy($category);
+    $post = $repository-> find($category);
 
    // $em = $this->getDoctrine()->getManager();
    // $query = $em->createQuery('SELECT c

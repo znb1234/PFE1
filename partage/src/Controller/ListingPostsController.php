@@ -20,14 +20,34 @@ class ListingPostsController extends AbstractController
 
 
     #[Route('/ListingPosts', name: 'ListingP')]
-    public function ListingPosts(Request $request, ManagerRegistry $post,PaginatorInterface $paginator)
+    public function ListingPosts(Request $request, ManagerRegistry $post)
 
     {
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT c , u.username
+        $query = $em->createQuery('SELECT c.id,c.contenu,c.category ,c.updatetime, c.description , u.username
             FROM App\Entity\Post c , App\Entity\User u WHERE c.auteur = u.id  ');
 
-        $post = $query->getArrayResult();return new Response(json_encode($post), 200);
+        $post = $query->getArrayResult();return new JsonResponse ($post, 200);
 
-     }}
+     }
+
+
+    #[Route('/ListingApprouvedPosts', name: 'ListingP')]
+    public function AffichagePostsApprouvé (Request $request, ManagerRegistry $post)
+
+    {
+        $p = json_decode($request->getContent(), true);
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        $id =$p ["id"];
+         $post= $repository->find ($id);
+
+
+        $isApprouved =$post-> isApprouved();
+if ( $isApprouved  )
+{ return new  JsonResponse(json_encode($post), 200);}
+return new JsonResponse($post,200);
+
+    }
+}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\PostUser;
 use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManager;
@@ -58,14 +59,14 @@ class PostController extends AbstractController
 
         $contenu = $parameters["contenu"];
 
-        $DataType = $parameters["dataType"];
+        $description = $parameters["description"];
         $category = $parameters["category"];
 
 
         $post = new Post();
         $post->setContenu($contenu);
         $post->setCategory($category);
-        $post->setDataType($DataType);
+        $post->setDescription($description);
         $post->setAuteur($auteur);
         $post->setCreationdate(new DateTime('now'));
         $post->setUpdatetime(new DateTime('now'));
@@ -81,41 +82,64 @@ class PostController extends AbstractController
 
     }
 
-    #[Route('/like', name: 'app_users')]
-    public function likepost(Request $request)
+    #[Route('/like', name: 'app_like_users_post')]
+    public function likePost(Request $request)
     {
+
         $parameters = json_decode($request->getContent(), true);
-        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $userRep = $this->getDoctrine()->getRepository(User::class);
+        $postRep = $this->getDoctrine()->getRepository(Post::class);
+        $id_post = $parameters["id_post"];
+        $id_user = $parameters["id_user"];
 
-        $id = $parameters["id"];
-        $post = $repository->findOneById($id);
-       $manager = $this->getDoctrine()->getManager();
+        $userPost = new PostUser();
 
 
-        if ($id == null) {
-            return new JsonResponse ("erreur");
-        }
-    else
 
-    //$i=0;
-    $nombrelike = +1;
-    $manager->persist((object)$post);
-    $manager->flush();
-    return new JsonResponse($nombrelike);
 
+            $liked=$this->createQueryBuilder('l')
+            ->Join('l.post', 'u')
+            ->Join('l.user','e')
+            ->addSelect('u','e')
+            ->where('l.id = :val2')
+            ->andwhere ('u.id =:val1')
+            ->setParameter('val1', $id_post)
+            ->setParameter('val2', $id_user)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+         return new JsonResponse('post is liked ');
     }
 
 
 
 
     #[Route('/getLikePosts', name: 'apppost')]
-    public function getlikePosts (Request $request)
+    public function getlikePosts ($post , $user)
     {
-        $parameters = json_decode($request->getContent(), true);
-        $repository = $this->getDoctrine()->getRepository(Post::class);
-
-        $id = $parameters["id"];
-        $post = $repository->findOneById($id);
-        return new JsonResponse( $post->getNombrelike());
+       $qb=$this->creatQueryBuilder ('b')
+       ->select ('Count(b)')
+           ->where ('b.user=:user')
+           ->andwhere('b.post=:post')
+           ->setParameter('post',$post)
+           ->setParameter ('user',$user);
+       return new JsonResponse($qb ->getQuery()->getSingleScalarResult());
     }
-}
+
+
+#[Route('/approuve', name: 'app')]
+    public function approuve (Request $request ){
+    $id = json_decode($request->getContent(), true);
+    $repository = $this->getDoctrine()->getRepository(Post::class);
+
+    $manager = $this->getDoctrine()->getManager();
+    $post = $repository->findOneBy($id);
+    if ($id==null){
+        return new JsonResponse ("erreur");
+    }
+    $post->setIsApprouved(!$post->IsApprouved ());
+    $manager->persist($post);
+    $manager->flush();
+    return new JsonResponse('post approuved or disprouved  ');
+
+}}

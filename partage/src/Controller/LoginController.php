@@ -25,12 +25,13 @@ class LoginController extends AbstractController
         //$isVerified = $parameters  ["isVerified"];
         $user = $repository->findOneByUsername($username);
         $em = $this->getDoctrine()->getManager();
-        $isVerified = $em->createQuery('SELECT c.isVerified
-            FROM App\Entity\User c ');
+        $isVerified =$user-> IsVerified();
+            //$em->createQuery('SELECT c.isVerified
+            //FROM App\Entity\User c ');
         //$user = $query->getArrayResult();
 
-
-        if (($isVerified) && $user && $hasher->isPasswordValid($user, $plaintextPassword) ) {
+        if ( ! empty($user) && ($isVerified==true) && $hasher->isPasswordValid($user, $plaintextPassword)
+        ) {
 
             $payload = [
                 "username" => $user->getUsername(),
@@ -43,7 +44,7 @@ class LoginController extends AbstractController
                 'status' => 200,
                 'token' => sprintf('Bearer %s', $jwt), 'username' => $user->getUsername(),
                 'password' => $user->getPassword(),
-                'roles' => $user->getRoles()
+                'roles' => $user->getRoles(),'id'=>$user-> getId()
             ]);}
             //  return $this->json(['status'=>200,
             //  'username' =>$user->getUsername(),
@@ -53,14 +54,16 @@ class LoginController extends AbstractController
        // else if ($isVerified==0)
      //   { return new JsonResponse(['status' => 404, 'response' => "merci d'attendre la vérification de l'utilisateur "]);}
 
-else if (!$user){     return new JsonResponse(['status' => 404, 'response' => "user not found"]);}
+else if (empty($user)||empty($isVerified)){     return new JsonResponse(['status' => 404, 'response' => "l'utilisateur n'est pas inscrit "]);}
         else
             if (! ($hasher->isPasswordValid($user, $plaintextPassword))) {
-                return new JsonResponse(['status' => 404, 'response' => "invalid password"]);
+                return new JsonResponse(['status' => 404, 'response' => "mot de passe incorrect "]);
             }
 
+else if (($isVerified==false))
+{    return new JsonResponse(['status' => 404, 'response' => "l'utilisateur est non vérifié"]);}
 
-    return new JsonResponse(['status' => 404, 'response' => "user inverified"]);}
+    return new JsonResponse(['status' => 404, 'response' => "erreur "]);}
 
 
 
@@ -71,5 +74,4 @@ else if (!$user){     return new JsonResponse(['status' => 404, 'response' => "u
         return new JsonResponse(['status' => 200, 'response'=> "User is logged out"]);
         // controller can be blank: it will never be called!
        // throw new \Exception('Don\'t forget to activate logout in security.yaml');
-    }
-}
+    }}

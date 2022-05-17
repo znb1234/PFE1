@@ -95,3 +95,19 @@ searchPD:
   path:  /SearchPostsbydescription
   controller:  App\Controller\searchController::searchPostbydescription
   methods: ['GET']
+notivérification:
+  path: /validation
+  controller: App\Controller\notificationController::validation
+  methods: ['post']
+noticategory:
+    path: /category
+    controller: App\Controller\notificationController::category
+    methods: [ 'post' ]
+approuve:
+  path: /approuve
+  controller: App\Controller\PostController::approuve
+  methods: ['post']
+AffichagePostsApprouvé:
+    path: /AffichagePostsApprouvé
+    controller : App\Controller\ListingPostsController::AffichagePostsApprouvé
+    methods :  ['GET']
