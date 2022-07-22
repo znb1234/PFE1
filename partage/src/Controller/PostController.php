@@ -97,16 +97,6 @@ class PostController extends AbstractController
 
 
 
-            $liked=$this->createQueryBuilder('l')
-            ->Join('l.post', 'u')
-            ->Join('l.user','e')
-            ->addSelect('u','e')
-            ->where('l.id = :val2')
-            ->andwhere ('u.id =:val1')
-            ->setParameter('val1', $id_post)
-            ->setParameter('val2', $id_user)
-            ->getQuery()
-            ->getOneOrNullResult();
 
          return new JsonResponse('post is liked ');
     }
@@ -142,4 +132,66 @@ class PostController extends AbstractController
     $manager->flush();
     return new JsonResponse('post approuved or disprouved  ');
 
-}}
+}
+    #[Route('/nombrePosts ', name: 'nombrePosts')]
+    public function nombrePosts (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('u')
+            ->select('count(u.id)')
+
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+    public function nombrePostsC (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('p')
+            ->select('count(p.id)')
+
+            ->where('p.category = ?1')
+            ->setParameter(1, 'Consulting')
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+    public function nombrePostsD (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('p')
+            ->select('count(p.id)')
+
+            ->where('p.category = ?2 ')
+            ->setParameter(2, 'Digital')
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+
+    public function nombrePostsT (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('p')
+            ->select('count(p.id)')
+
+            ->where('p.category = ?3')
+            ->setParameter(3, 'Technology')
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+
+   }

@@ -1,33 +1,33 @@
-import {Form, Input, Button, Checkbox, Alert} from 'antd';
-import { UserOutlined, LockOutlined,MailOutlined  } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, Alert } from 'antd';
+import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import axios from "../../config/axios";
-import {useState} from "react";
-
+import { useState } from "react";
+import login from '../../assets/img/auth.png'
 export default () => {
     let user = "Nom d'utilisateur ";
-    const [loading , setLoading] = useState(false)
-const [error , setError] = useState('')
-    const [success , setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState(false)
 
     const onFinish = (values) => {
         setError('')
         console.log('Received values of form: ', values);
         setLoading(true)
         setSuccess(false)
-        axios.post('/register' , values)
+        axios.post('/register', values)
             .then(res => {
                 console.log(res)
                 setLoading(false)
-                if(res.data.status === 200){
+                if (res.data.status === 200) {
 
                     setSuccess(true)
-                }else{
+                } else {
                     setError(res.data.response)
                 }
 
             })
     };
-    return(
+    return (
         <>
 
             <section class="main-banner" id="top">
@@ -37,12 +37,12 @@ const [error , setError] = useState('')
                             <div class="header-text">
                                 {
                                     success
-                                    ?
-                                      <Alert type='success' showIcon message="Votre compte a était crée avec success" />
+                                        ?
+                                        <Alert type='success' showIcon message="Votre compte est crée avec succès" />
                                         :
                                         <>
-                                            <h6>Create account</h6>
-                                            <br/>
+                                            <h6>Créer un compte </h6>
+                                            <br />
                                             <Form
                                                 name="normal_login"
                                                 className="login-form"
@@ -57,7 +57,7 @@ const [error , setError] = useState('')
                                                     &&
                                                     <>
                                                         <Alert type='error' showIcon message={error} />
-                                                        <br/>
+                                                        <br />
                                                     </>
 
                                                 }
@@ -66,11 +66,11 @@ const [error , setError] = useState('')
                                                     rules={[
                                                         {
                                                             required: true,
-                                                            message: 'Please input your Username!',
+                                                            message: "Entrez votre nom d'utilisateur!",
                                                         },
                                                     ]}
                                                 >
-                                                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder= "Nom d'utilisateur " />
+                                                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nom d'utilisateur " />
                                                 </Form.Item>
 
                                                 <Form.Item
@@ -78,7 +78,7 @@ const [error , setError] = useState('')
                                                     rules={[
                                                         {
                                                             required: true,
-                                                            message: 'Please input your email!',
+                                                            message: 'Entrez votre emaail!',
                                                         },
                                                     ]}
                                                 >
@@ -90,7 +90,7 @@ const [error , setError] = useState('')
                                                     rules={[
                                                         {
                                                             required: true,
-                                                            message: 'Please input your Password!',
+                                                            message: "Entrez votre mot de passe !",
                                                         },
                                                     ]}
                                                 >
@@ -103,13 +103,14 @@ const [error , setError] = useState('')
 
 
                                                 <Form.Item>
-                                                    <Button loading={loading} style={{marginRight:'10px'}} type="primary" htmlType="submit" className="login-form-button">
+                                                    <Button loading={loading} style={{ marginRight: '10px' }} type="primary" htmlType="submit" className="login-form-button">
                                                         S'inscrire
                                                     </Button>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                   vous avez déja un compte  ! <a href="">se connecter </a>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    vous avez déja un compte  !  <a  onClick={() => window.location.href = '/'} >Se connecter
+                                                < /a>
                                                 </Form.Item>
                                             </Form>
                                         </>
@@ -118,7 +119,7 @@ const [error , setError] = useState('')
                             </div>
                         </div>
                         <div class="col-lg-6">
-
+                            <img style={{height:"80%"}} src={login} alt="" />
                         </div>
                     </div>
                 </div>

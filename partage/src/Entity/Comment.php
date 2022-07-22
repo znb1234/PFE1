@@ -7,33 +7,51 @@ use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ApiResource]
+
+#[ApiResource( normalizationContext: [
+    'groups' => ['comment'],
+],
+    denormalizationContext: [
+        'groups' => ['comment'],
+    ],
+)]
+
+
 class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["comment"])]
     private $id;
 
+
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[Groups(["comment"])]
     private $auteur;
+
     #[ORM\ManyToOne(targetEntity: Post::class)]
+    #[Groups(["comment"])]
     private $post;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(["comment"])]
     private $contenu;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(["comment"])]
     private $datecreation;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(["comment"])]
     private $lastupdate;
 
     public function __construct()
     {
-        $this->auteur = new ArrayCollection();
+    //    $this->auteur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -41,13 +59,13 @@ class Comment
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, user>
-     */
-    public function getAuteur(): Collection
+
+    public function getAuteur()
     {
         return $this->auteur;
     }
+
+
     public function setAuteur(User $auteur): self
     {
         $this->auteur = $auteur;
@@ -71,10 +89,8 @@ class Comment
         return $this;
     }
 
-    /**
-     * @return Collection<int, post>
-     */
-    public function getPost(): Collection
+
+    public function getPost()
     {
         return $this->post;
     }

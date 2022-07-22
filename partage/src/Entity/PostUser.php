@@ -2,47 +2,51 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\PostUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: PostUserRepository::class)]
+#[ApiResource]
 class PostUser
 {
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: Post::class, cascade: ['persist', 'remove'])]
+    private $post;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy:"likedPosts")]
-    private $idUser;
-
-    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy:"likedPosts")]
-    private $idPost;
-
-    /**
-     * @return mixed
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-
-    /**
-     * @param mixed $idUser
-     */
-    public function setIdUser($idUser): void
-    {
-        $this->idUser = $idUser;
-    }
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
 
     /**
      * @return mixed
      */
-    public function getIdPost()
+    public function getPost()
     {
-        return $this->idPost;
+        return $this->post;
     }
 
     /**
-     * @param mixed $idPost
+     * @param mixed $post
      */
-    public function setIdPost($idPost): void
+    public function setPost($post): void
     {
-        $this->idPost = $idPost;
+        $this->post = $post;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
 }

@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(["person"])]
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
-   // #[Groups(["person"])]
+    #[Groups(["person","comment","post"])]
     #[ORM\Column(type: 'string', length: 80, unique: true)]
     private $username;
     #[Groups(["person"])]
@@ -37,12 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(["person"])]
     #[ORM\Column(type: 'string')]
     private $password;
-    //#[Groups(["person"])]
+    #[Groups(["person"])]
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
-
-    #[ORM\OneToMany(targetEntity: PostUser::class, mappedBy:"idUser")]
-    private $LikedPost;
 
     public function getId(): ?int
     {
@@ -161,12 +158,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-    public function getIsVerified(bool $isVerified):bool
     {
         $this->isVerified = $isVerified;
 

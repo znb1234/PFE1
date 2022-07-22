@@ -19,19 +19,13 @@ class updateController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $parameters = json_decode($request->getContent(), true);
         $postRep=  $this->getDoctrine()->getRepository(Post::class);
-
         $id = $parameters["id"];
-
         $post= $postRep->find($id);
-
-        $query = $em->createQuery('SELECT c.contenu 
-            FROM App\Entity\Post c ');
-
         $contenu = $parameters["contenu"];
-
-
-
-
+$description =$parameters["desciption"];
+$category =$parameters["category"];
+$post->setCategory($category);
+$post->setDescription($description);
         $post->setContenu($contenu);
         $post->setUpdatetime(new \DateTime('now'));
         $entityManager = $doctrine->getManager();
@@ -40,7 +34,7 @@ class updateController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(
-            $post
+            "postupdated"
         );
     }
 
@@ -52,14 +46,8 @@ class updateController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $parameters = json_decode($request->getContent(), true);
         $commentRep=  $this->getDoctrine()->getRepository(Comment::class);
-
         $id = $parameters["id"];
-
         $comment= $commentRep->find($id);
-
-        $query = $em->createQuery('SELECT c.contenu 
-            FROM App\Entity\Comment c ');
-
         $contenu = $parameters["contenu"];
 
 
@@ -73,7 +61,36 @@ class updateController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(
-            $comment
+           "comment updated"
+        );
+    }
+    public function updateUser (Request $request ,ManagerRegistry $doctrine){
+
+
+        $em = $this->getDoctrine()->getManager();
+        $parameters = json_decode($request->getContent(), true);
+        $commentRep=  $this->getDoctrine()->getRepository(User::class);
+
+        $id = $parameters["id"];
+
+        $user = $commentRep->find($id);
+
+
+
+        $email = $parameters["email"];
+        $username = $parameters["username"];
+
+
+
+        $user->setUserIdentifier($email);
+        $user->setUsername($username);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+
+        $entityManager->flush();
+
+        return new JsonResponse(
+            "user updated"
         );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,22 +23,22 @@ class deleteController extends AbstractController
 
         $post= $postRep->find($id);
 
-        $contenu = $parameters["contenu"];
+       // $contenu = $parameters["contenu"];
 
 
 
 
-        $post->setContenu($contenu);
+       // $post->setContenu($contenu);
 
 
-        $post->setUpdatetime(new \DateTime('now'));
+      //  $post->setUpdatetime(new \DateTime('now'));
         $entityManager = $doctrine->getManager();
         $entityManager->remove($post);
 
         $entityManager->flush();
 
         return new JsonResponse(
-            $post
+            "publication supprimée "
         );
     }
 
@@ -53,22 +54,50 @@ class deleteController extends AbstractController
 
         $comment= $commentRep->find($id);
 
-        $contenu = $parameters["contenu"];
+     //   $contenu = $parameters["contenu"];
 
 
 
 
-        $comment->setContenu($contenu);
+     //   $comment->setContenu($contenu);
 
 
-        $comment->setUpdatetime(new \DateTime('now'));
+     //   $comment->setUpdatetime(new \DateTime('now'));
         $entityManager = $doctrine->getManager();
         $entityManager->remove($comment);
 
         $entityManager->flush();
 
         return new JsonResponse(
-            $comment
+            "commentaire supprimé"
+        );
+    }
+    public function DeleteUser(Request $request ,ManagerRegistry $doctrine){
+
+
+
+        $username = json_decode($request->getContent(), true);
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        // $username = $parameters['username'];
+        $manager = $this->getDoctrine()->getManager();
+        $user = $repository->findOneByUsername($username);
+
+        //   $contenu = $parameters["contenu"];
+
+
+
+
+        //   $comment->setContenu($contenu);
+
+
+        //   $comment->setUpdatetime(new \DateTime('now'));
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($user);
+
+        $entityManager->flush();
+
+        return new JsonResponse(
+           "utilisateur supprimé"
         );
     }
 }

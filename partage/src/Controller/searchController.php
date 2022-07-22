@@ -21,15 +21,12 @@ class searchController extends AbstractController
 public function searchPostbyusername (Request $request) {
     $parameters = json_decode($request->getContent(), true);
     $repository = $this->getDoctrine()->getRepository(Post::class);
-    $auteur = $parameters["auteur"];
-    $post = $repository-> find($auteur);
+        $repositoryU = $this->getDoctrine()->getRepository(User::class);
+    $username = $parameters["username"];
+    $auteurR = $repositoryU-> findBy(["username"=>$username]);
+$post=$repository->findBy($auteurR);
 
-    $em = $this->getDoctrine()->getManager();
-    $query = $em->createQuery('SELECT c
-       FROM App\Entity\Post c , App\Entity\User u WHERE  u.id = c.auteur ');
-
-    $post = $query->getArrayResult();
-    return new Response(json_encode($post), 200);
+        return $this->json([$post,$username]);
 
 
 }
@@ -38,14 +35,16 @@ public function searchPostbycategory (Request $request) {
     $parameters = json_decode($request->getContent(), true);
     $repository = $this->getDoctrine()->getRepository(Post::class);
     $category = $parameters["category"];
-    $post = $repository-> find($category);
+    $post = $repository-> findBy(['category'=>$category]);
+
 
    // $em = $this->getDoctrine()->getManager();
    // $query = $em->createQuery('SELECT c
      //  FROM App\Entity\Post c , App\Entity\User u WHERE  u.id = c.auteur ');
 
  //   $post = $query->getArrayResult();
-    return new Response(json_encode($post), 200);
+    return $this->json([$post]);
+
 
 
 }
@@ -54,14 +53,11 @@ public function searchPostbydescription (Request $request) {
     $parameters = json_decode($request->getContent(), true);
     $repository = $this->getDoctrine()->getRepository(Post::class);
     $description= $parameters["description"];
-    $post = $repository-> findBy($description);
 
-   // $em = $this->getDoctrine()->getManager();
-   // $query = $em->createQuery('SELECT c
-     //  FROM App\Entity\Post c , App\Entity\User u WHERE  u.id = c.auteur ');
+    $post = $repository-> findBy(['description'=>$description]);
 
- //   $post = $query->getArrayResult();
-    return new Response(json_encode($post), 200);
+
+    return $this->json([$post]);
 
 
 }

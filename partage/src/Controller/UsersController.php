@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,7 +23,7 @@ class UsersController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT c.username ,c.email,c.isVerified
+        $query = $em->createQuery('SELECT c.username ,c.email,c.isVerified, c.id
             FROM App\Entity\User c ');
         $user = $query->getArrayResult();return new Response(json_encode($user), 200);
 
@@ -84,6 +85,40 @@ public function disactivate (Request $request)
     $manager->flush();
     return new JsonResponse('disactivation is done');
 }
+    #[Route('/nombreUsers', name: 'nombreUsers')]
+    public function nombreUsers (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('u')
+            ->select('count(u.id)')
+
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+    public function nombreUsersV (Request $request): JsonResponse
+    {
+
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        return new JsonResponse ( $repository->createQueryBuilder('p')
+            ->select('count(p.id)')
+
+            ->where('p.IsVerified= 1 ')
+
+            ->getQuery()
+            ->getSingleScalarResult()
+        );
+    }
+
+
+
+
+
 }
 
 

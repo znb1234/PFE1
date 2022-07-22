@@ -1,0 +1,28 @@
+.chart_card_item {
+    display: flex;
+justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    background: whitesmoke;
+    border-radius: 10px;
+    border-bottom: 3px solid #EFC7ED ;
+}
+.left_chart {
+    display: flex;
+align-items: center;
+
+}
+
+.left_chart i {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.left_chart span {
+    font-size: 22px;
+}
+
+.chart_card_item > span {
+    font-size: 25px;
+    color:#EFC7ED ;
+}

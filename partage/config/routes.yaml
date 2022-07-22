@@ -43,6 +43,11 @@ getPost:
   path: /getPost
   controller: App\Controller\CommentContoller::getPost
   methods: ['GET','POST']
+getComment:
+  path: /getComment
+  controller: App\Controller\CommentContoller::getComment
+  methods: ['GET','POST']
+
 Comment:
   path: /Comment
   controller: App\Controller\CommentContoller::create
@@ -60,9 +65,9 @@ ContactUs:
   controller: App\Controller\ContactUsController::Contact
   methods: ['Post']
 like:
-  path: /like
-  controller: App\Controller\PostController::likepost
-  methods: [ 'Post','Get' ]
+  path: /likePost
+  controller: App\Controller\likeController::likePost
+  methods: [ 'POST','GET' ]
 updateP:
   path: /UpdateP
   controller: App\Controller\updateController::updatePost
@@ -71,10 +76,18 @@ updateC:
   path: /UpdateC
   controller: App\Controller\updateController::updateComment
   methods: [ 'POST','GET' ]
+updateU:
+  path: /UpdateU
+  controller: App\Controller\updateController::updateUser
+  methods: [ 'POST','GET' ]
 deleteP:
   path: /DeleteP
   controller:  App\Controller\deleteController::DeletePost
   methods: ['POST','GET']
+deleteU:
+    path: /DeleteU
+    controller: App\Controller\deleteController::DeleteUser
+    methods: [ 'POST','GET' ]
 deleteC:
   path: /DeleteC
   controller:  App\Controller\deleteController::DeleteComment
@@ -108,6 +121,46 @@ approuve:
   controller: App\Controller\PostController::approuve
   methods: ['post']
 AffichagePostsApprouvé:
-    path: /AffichagePostsApprouvé
-    controller : App\Controller\ListingPostsController::AffichagePostsApprouvé
+    path: /AffichagePostsApprouved
+    controller : App\Controller\ListingPostsController::AffichagePostsApprouved
     methods :  ['GET']
+NombreLike:
+    path: /nombreLike
+    controller :  App\Controller\likeController::nombreLike
+    methods : ['GET','POST']
+nombrecomment:
+   path: /nombrecomment
+   controller : App\Controller\CommentContoller::nombreComment
+   methods : ['get']
+NombreLikeTotale:
+  path: /nombreLikeTotale
+  controller :  App\Controller\likeController::nombreLikeTotale
+  methods : ['GET','POST']
+NombrePosts:
+  path: /nombrePosts
+  controller:  App\Controller\PostController::nombrePosts
+  methods:  ['GET','POST']
+NombrePostsC:
+  path: /nombrePostsC
+  controller:  App\Controller\PostController::nombrePostsC
+  methods:  ['GET','POST']
+NombrePostsD:
+  path: /nombrePostsD
+  controller:  App\Controller\PostController::nombrePostsD
+  methods:  ['GET','POST']
+NombrePostsT:
+  path: /nombrePostsT
+  controller:  App\Controller\PostController::nombrePostsT
+  methods:  ['GET','POST']
+NombreUsers:
+  path: /nombreUsers
+  controller:  App\Controller\UsersController::nombreUsers
+  methods:  ['GET','POST']
+NombreUsersV:
+  path: /nombreUsersV
+  controller:  App\Controller\UsersController::nombreUsersV
+  methods:  ['GET','POST']
+NombrelikesMax :
+  path: /nombreLikeMax
+  controller:  App\Controller\likeController::nombreLikeMax
+  methods: ['Get','POST']

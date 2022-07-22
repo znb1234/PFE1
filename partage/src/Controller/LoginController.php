@@ -22,13 +22,11 @@ class LoginController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $username = $parameters["username"];
         $plaintextPassword = $parameters["password"];
-        //$isVerified = $parameters  ["isVerified"];
+
         $user = $repository->findOneByUsername($username);
         $em = $this->getDoctrine()->getManager();
         $isVerified =$user-> IsVerified();
-            //$em->createQuery('SELECT c.isVerified
-            //FROM App\Entity\User c ');
-        //$user = $query->getArrayResult();
+
 
         if ( ! empty($user) && ($isVerified==true) && $hasher->isPasswordValid($user, $plaintextPassword)
         ) {

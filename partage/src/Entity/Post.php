@@ -8,56 +8,54 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource( normalizationContext: [
+    'groups' => ['post'],
+],
+    denormalizationContext: [
+        'groups' => ['post'],
+    ],
+)]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[ApiResource]
+
 class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["post"])]
     private $id;
-
-    #[ORM\OneToMany(targetEntity: PostUser::class, mappedBy:"idPost")]
-    private $LikedPost;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $isApprouved = false;
-
-    /**
-     * @return bool
-     */
-    public function isApprouved(): bool
-    {
-        return $this->isApprouved;
-    }
-
-    /**
-     * @param bool $isApprouved
-     */
-    public function setIsApprouved(bool $isApprouved): void
-    {
-        $this->isApprouved = $isApprouved;
-    }
 
 
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[Groups(["post"])]
     private $auteur;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(["post"])]
     private $creationdate;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: false)]
+    #[Groups(["post"])]
     private $contenu;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(["post"])]
     private $updatetime;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["post"])]
     private $description;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["post"])]
     private $category;
+
+
+     #[Groups(["post"])]
+     #[ORM\Column(type: 'boolean')]
+     private $isApprouved = false;
 
     public function __construct()
     {
@@ -96,7 +94,6 @@ class Post
 
         return $this;
     }
-
 
     public function getCreationdate(): ?\DateTimeInterface
     {
@@ -158,6 +155,20 @@ class Post
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isApprouved(): bool
+    {
+        return $this->isApprouved;
+    }
 
+    /**
+     * @param bool $isApprouved
+     */
+    public function setIsApprouved(bool $isApprouved): void
+    {
+        $this->isApprouved = $isApprouved;
+    }
 
 }

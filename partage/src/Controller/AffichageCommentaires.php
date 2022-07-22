@@ -16,7 +16,7 @@ class AffichageCommentaires extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT c.contenu 
+        $query = $em->createQuery('SELECT c
             FROM App\Entity\Comment c ');
         $comment = $query->getArrayResult();
         return new Response(json_encode($comment), 200);
